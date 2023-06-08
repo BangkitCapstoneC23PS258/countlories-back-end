@@ -1,11 +1,12 @@
+// Definisi Library yang digunakan
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const flash = require('req-flash');
 const app = express();
-const port = 4000;
 
+// Definisi lokasi file router
 const loginRoutes = require('./src/routes/router-login');
 const registerRoutes = require('./src/routes/router-register');
 const appRoutes = require('./src/routes/router-app');
@@ -14,14 +15,15 @@ const appRoutes = require('./src/routes/router-app');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+// Configurasi library session
 app.use(session({
     resave: false,
     saveUninitialized: false,
-    secret: 'countlories123',
+    secret: 't@1k0ch3ng',
     name: 'secretName',
     cookie: {
         sameSite: true,
-        maxAge: 120000
+        maxAge: 60000
     },
 }))
 app.use(flash());
@@ -37,5 +39,5 @@ app.use('/', appRoutes);
 
 // Gunakan port server
 app.listen(5050, ()=>{
-    console.log('Countlories running in port '+ port);
+    console.log('Server Berjalan di Port : '+5050);
 });
