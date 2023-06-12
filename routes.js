@@ -6,6 +6,8 @@ const {getUser} = require('./controllers/getUserController');
 const {foodAll} = require('./controllers/foodAllController');
 const {foodID} = require('./controllers/foodIDController');
 const {foodName} = require('./controllers/foodNameController');
+const {profileInput} = require('./controllers/profileInputController');
+const {profileUpdate} = require('./controllers/profileUpdateController');
 
 router.post('/register', [
     body('username',"The username must be of minimum 3 characters length")
@@ -29,10 +31,12 @@ router.post('/login',[
     body('password',"The Password must be of minimum 4 characters length").notEmpty().trim().isLength({ min: 4 }),
 ],login);
 
-router.get('/getuser',getUser);
-
 router.get('/get-all-food', foodAll);
 router.get('/get-food/:id', foodID);
-router.get('/get-food/:name', foodName);
+//router.get('/get-food/:name', foodName);
+
+router.get('/getuser',getUser);
+router.post('/insert-data', profileInput);
+router.post('/update-data', profileUpdate);
 
 module.exports = router;
