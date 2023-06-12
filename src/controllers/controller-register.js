@@ -20,12 +20,10 @@ module.exports ={
             pool.getConnection(function(err, connection) {
                 if (err) throw err;
                 connection.query(
-                    `INSERT INTO table_user (user_name,user_email,user_password) VALUES (?,?,SHA2(?,512));`
+                    `INSERT INTO user (username,email,password) VALUES (?,?,SHA2(?,512));`
                 , [username, email, password],function (error, results) {
                     if (error) throw error; 
-                    req.flash('color', 'success');
-                    req.flash('status', 'Yes..');
-                    req.flash('message', 'Registrasi berhasil');
+                    req.send('message', 'Registrasi berhasil');
                     res.redirect('/login');
                 });
                 connection.release();

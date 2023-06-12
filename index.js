@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 app.use(session({
     resave: false,
     saveUninitialized: false,
-    secret: 't@1k0ch3ng',
+    secret: 'countlories',
     name: 'secretName',
     cookie: {
         sameSite: true,
@@ -28,14 +28,10 @@ app.use(session({
 }))
 app.use(flash());
 
-// Setting folder views
-app.set('views',path.join(__dirname,'src/views'));
-app.set('view engine', 'ejs');
-
 // Gunakan routes yang telah didefinisikan
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
-//app.use('/', appRoutes);
+app.use('/', appRoutes);
 
 // Gunakan port server
 app.listen(5050, ()=>{

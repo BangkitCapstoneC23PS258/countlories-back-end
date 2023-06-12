@@ -1,7 +1,7 @@
 module.exports = {
     multipleStatements  : true,
-    host                : 'localhost',
+    host                : '34.128.117.96',
     user                : 'root',
-    password            : '',
+    password            : 'bluered123',
     database            : 'countlories'
 };

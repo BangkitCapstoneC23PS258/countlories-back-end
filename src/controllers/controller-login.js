@@ -23,7 +23,7 @@ module.exports ={
             pool.getConnection(function(err, connection) {
                 if (err) throw err;
                 connection.query(
-                    `SELECT * FROM table_user WHERE user_email = ? AND user_password = SHA2(?,512)`
+                    `SELECT * FROM user WHERE email = ? AND password = SHA2(?,512)`
                 , [email, password],function (error, results) {
                     if (error) throw error;  
                     if (results.length > 0) {
@@ -32,9 +32,7 @@ module.exports ={
                         req.session.username = results[0].user_name;
                         res.redirect('/');
                     } else {
-                        req.flash('color', 'danger');
-                        req.flash('status', 'Oops..');
-                        req.flash('message', 'Akun tidak ditemukan');
+                        req.send('message', 'Akun tidak ditemukan');
                         res.redirect('/login');
                     }
                 });
