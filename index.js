@@ -35,9 +35,9 @@ app.set('view engine', 'ejs');
 // Gunakan routes yang telah didefinisikan
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
-app.use('/', appRoutes);
+//app.use('/', appRoutes);
 
 // Gunakan port server
 app.listen(5050, ()=>{
-    console.log('Server Berjalan di Port : '+5050);
+    console.log('Server Berjalan di Port : '+ 5050);
 });
