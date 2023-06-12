@@ -3,6 +3,9 @@ const {body} = require('express-validator');
 const {register} = require('./controllers/registerController');
 const {login} = require('./controllers/loginController');
 const {getUser} = require('./controllers/getUserController');
+const {foodAll} = require('./controllers/foodAllController');
+const {foodID} = require('./controllers/foodIDController');
+const {foodName} = require('./controllers/foodNameController');
 
 router.post('/register', [
     body('username',"The username must be of minimum 3 characters length")
@@ -27,5 +30,9 @@ router.post('/login',[
 ],login);
 
 router.get('/getuser',getUser);
+
+router.get('/get-all-food', foodAll);
+router.get('/get-food/:id', foodID);
+router.get('/get-food/:name', foodName);
 
 module.exports = router;
