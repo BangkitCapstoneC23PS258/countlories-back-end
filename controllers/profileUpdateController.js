@@ -5,9 +5,9 @@ exports.profileUpdate = async (req, res, next) => {
   try {
 
     const [row] = await conn.execute(
-        "SELECT * FROM `user` WHERE `id`=?",
+        "SELECT * FROM `user` WHERE `user_id`=?",
         [req.params.id]
-    );z
+    );
 
     if (row.length === 0) {
       return res.status(404).json({
@@ -20,7 +20,7 @@ exports.profileUpdate = async (req, res, next) => {
     if (req.body.email) row[0].email = req.body.email;
 
     const [update] = await conn.execute(
-      "UPDATE `user` SET `username`=?, `email`=? WHERE `id`=?",
+      "UPDATE `user` SET `username`=?, `email`=? WHERE `user_id`=?",
       [row[0].username, row[0].email, req.params.id]
     );
 

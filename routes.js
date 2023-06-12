@@ -37,6 +37,6 @@ router.get('/get-food/:id', foodID);
 
 router.get('/getuser',getUser);
 router.post('/insert-data', profileInput);
-router.post('/update-data', profileUpdate);
+router.patch('/update-data/:id', profileUpdate);
 
 module.exports = router;
