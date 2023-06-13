@@ -5,6 +5,7 @@ exports.favAdd = async (req, res, next) => {
 
   if (!req.body.user_id || !req.body.food_id) {
     return res.status(400).json({
+      status : "failed",
       message: "Please fill in all the required fields.",
       fields: ["user_id", "food_id"],
     });
@@ -19,6 +20,7 @@ exports.favAdd = async (req, res, next) => {
 
     if (rows.affectedRows === 1) {
       return res.status(201).json({
+        status : "success",
         message: "The data has been successfully inserted.",
         userID: rows.insertId,
       });

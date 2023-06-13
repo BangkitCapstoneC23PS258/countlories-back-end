@@ -19,6 +19,7 @@ exports.profileInput = async (req, res, next) => {
 
     if (rows.affectedRows === 1) {
       return res.status(201).json({
+        status : "failed",
         message: "The data has been successfully inserted.",
         userID: rows.insertId,
       });

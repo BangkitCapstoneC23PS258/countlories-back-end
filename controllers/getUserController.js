@@ -11,6 +11,7 @@ exports.getUser = async (req,res,next) => {
             !req.headers.authorization.split(' ')[1]
         ){
             return res.status(422).json({
+                status : "failed",
                 message: "Please provide the token",
             });
         }
@@ -30,6 +31,7 @@ exports.getUser = async (req,res,next) => {
         }
 
         res.json({
+            status : "failed",
             message:"No user found"
         });
         

@@ -18,6 +18,7 @@ exports.register = async(req,res,next) => {
 
         if (row.length > 0) {
             return res.status(201).json({
+                status : "failed",
                 message: "The E-mail already in use",
             });
         }
@@ -32,6 +33,7 @@ exports.register = async(req,res,next) => {
 
         if (rows.affectedRows === 1) {
             return res.status(201).json({
+                status : "success",
                 message: "The user has been successfully inserted.",
             });
         }

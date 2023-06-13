@@ -12,6 +12,7 @@ exports.favID = async (req, res, next) => {
 
     if (row.length === 0) {
       return res.status(404).json({
+        status : "failed",
         message: "No Favorite Found!",
       });
     }

@@ -8,6 +8,7 @@ exports.foodAll = async (req, res, next) => {
 
     if (rows.length === 0) {
       return res.status(200).json({
+        status : "failed",
         message:
           "No Food Found",
       });

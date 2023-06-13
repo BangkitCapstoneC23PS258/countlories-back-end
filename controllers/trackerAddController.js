@@ -5,6 +5,7 @@ exports.trackerAdd = async (req, res, next) => {
 
   if (!req.body.tracker_id || !req.body.user_id || !req.body.trackertime) {
     return res.status(400).json({
+     status : "failed",
       message: "Please fill in all the required fields.",
       fields: ["tracker_id", "user_id", "trackertime"],
     });
@@ -19,6 +20,7 @@ exports.trackerAdd = async (req, res, next) => {
 
     if (rows.affectedRows === 1) {
       return res.status(201).json({
+        status : "success",
         message: "The data has been successfully inserted.",
         userID: rows.insertId,
       });

@@ -3,7 +3,6 @@ const conn = require('../dbConnection').promise();
 
 exports.profileUpdate = async (req, res, next) => {
   try {
-
     const [row] = await conn.execute(
         "SELECT * FROM `personaldata` WHERE `user_id`=?",
         [req.params.user_id]
@@ -11,23 +10,20 @@ exports.profileUpdate = async (req, res, next) => {
 
     if (row.length === 0) {
       return res.status(404).json({
+        status : "failed",
         message: "Invalid User ID",
       });
     }
 
-    if (req.body.height) row[0].height = req.body.height
-    if (req.body.weight) row[0].weight = req.body.weight;
-
     const [update] = await conn.execute(
       "UPDATE `personaldata` SET `height`=?, `weight`=? WHERE `user_id`=?",
-      [row[0].height, row[0].weight, req.params.user_id]
+      [req.body.height, req.body.weight, req.params.user_id]
     );
-
-    if (update.affectedRows === 1) {
-      return res.json({
+      
+    return res.json({
+        status : "success",
         message: "The User has been successfully updated.",
       });
-    }
 
   } catch (err) {
     next(err);

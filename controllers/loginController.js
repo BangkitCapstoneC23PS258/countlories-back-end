@@ -13,29 +13,33 @@ exports.login = async (req,res,next) =>{
 
     try{
 
-        const [row] = await conn.execute(
+        const [selectuser] = await conn.execute(
             "SELECT * FROM `user` WHERE `email`=?",
             [req.body.email]
           );
 
-        if (row.length === 0) {
+        if (selectuser.length === 0) {
             return res.status(422).json({
+                status : "failed",
                 message: "Invalid email address",
             });
         }
 
-        const passMatch = await bcrypt.compare(req.body.password, row[0].password);
+        const passMatch = await bcrypt.compare(req.body.password, selectuser[0].password);
         if(!passMatch){
             return res.status(422).json({
+                status : "failed",
                 message: "Incorrect password",
             });
         }
 
-        const theToken = jwt.sign({id:row[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
+        const theToken = jwt.sign({id:selectuser[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
 
         return res.json({
+            status : "success",
+            message: "Login berhasil",
             token:theToken,
-            message: "Login Success", 
+            idUser: selectuser[0].user_id, 
         });
 
     }
