@@ -3,12 +3,12 @@ const conn = require('../dbConnection').promise();
 
 exports.favDelete = async (req, res, next) => {
 
-  try {
-
+  try {  
     const [row] = await conn.execute(
-        "DELETE FROM `favorite` WHERE `food_id`=?",
-        [req.params.food_id]
+        "DELETE FROM `favorite` WHERE `user_id`=? AND `food_id`=?",
+        [req.params.user_id, req.params.food_id]
     );
+
 
     if (row.affectedRows === 0) {
       return res.status(404).json({
