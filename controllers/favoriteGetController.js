@@ -11,16 +11,23 @@ exports.favID = async (req, res, next) => {
     );
 
     if (row.length === 0) {
-      return res.status(404).json({
+     return res.status(400).json({
         status : "failed",
-        message: "No Favorite Found!",
-      });
+        message: "Data tidak berhasil didapat",
+        idUser: null,
+  });
     }
 
-    res.status(200).json(row[0]);
+    res.status(200).json({
+        status : "success",
+        message: "Data favorite berhasil didapat",
+        idUser: row[0].user_id,
+        userID: row.insertId,
+    });
 
   } catch (err) {
     next(err);
+    
   }
 
 };

@@ -57,4 +57,8 @@ router.get('/getfav/:id',favID);
 router.post('/postfav',favAdd);
 router.delete('/deletefav/:user_id/:food_id',favDelete);
 
+router.get('/', (req, res) => {
+  res.send('Welcome to Countlorie Back End')
+});
+
 module.exports = router;

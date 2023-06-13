@@ -11,15 +11,18 @@ exports.favDelete = async (req, res, next) => {
 
 
     if (row.affectedRows === 0) {
-      return res.status(404).json({
+     return res.status(400).json({
         status : "failed",
-        message: "Invalid Food ID (No Food Found!)",
-      });
+        message: "Data tidak berhasil diamsukkan",
+        idUser: null,
+  });
     }
 
     res.status(200).json({
-    status : "success",
-      message: "The Food has been deleted successfully.",
+        status : "success",
+        message: "Data berhasil dimasukkan",
+        idUser: row[0].user_id,
+        output: row[0],
     });
     
   } catch (err) {

@@ -22,6 +22,8 @@ exports.login = async (req,res,next) =>{
             return res.status(422).json({
                 status : "failed",
                 message: "Invalid email address",
+                 token: null,
+                idUser: null,
             });
         }
 
@@ -30,6 +32,8 @@ exports.login = async (req,res,next) =>{
             return res.status(422).json({
                 status : "failed",
                 message: "Incorrect password",
+                token: null,
+                idUser: null,
             });
         }
 

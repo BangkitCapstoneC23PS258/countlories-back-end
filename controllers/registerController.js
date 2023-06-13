@@ -17,10 +17,11 @@ exports.register = async(req,res,next) => {
           );
 
         if (row.length > 0) {
-            return res.status(201).json({
-                status : "failed",
-                message: "The E-mail already in use",
-            });
+            return res.status(400).json({
+                    status : "failed",
+                    message: "Email sudah dipakai",
+                    idUser: null,
+              });
         }
 
         const hashPass = await bcrypt.hash(req.body.password, 12);
@@ -32,9 +33,11 @@ exports.register = async(req,res,next) => {
         ]);
 
         if (rows.affectedRows === 1) {
-            return res.status(201).json({
+            res.status(200).json({
                 status : "success",
-                message: "The user has been successfully inserted.",
+                message: "Data berhasil dimasukkan",
+                idUser: row[0].user_id,
+                output: row[0],
             });
         }
         

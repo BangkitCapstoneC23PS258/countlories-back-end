@@ -10,10 +10,11 @@ exports.getUser = async (req,res,next) => {
             !req.headers.authorization.startsWith('Bearer') ||
             !req.headers.authorization.split(' ')[1]
         ){
-            return res.status(422).json({
+            return res.status(401).json({
                 status : "failed",
-                message: "Please provide the token",
-            });
+                message: "Tidak ada Token",
+                idUser: null,
+          });
         }
 
         const theToken = req.headers.authorization.split(' ')[1];
@@ -25,16 +26,19 @@ exports.getUser = async (req,res,next) => {
         );
 
         if(row.length > 0){
-            return res.json({
-                user:row[0]
+            res.status(200).json({
+                status : "success",
+                message: "Data berhasil dimasukkan",
+                idUser: row[0].user_id,
+                output: row[0],
             });
         }
 
         res.json({
             status : "failed",
-            message:"No user found"
-        });
-        
+            message: "Data user tidak ada",
+            idUser: null,
+        });        
     }
     catch(err){
         next(err);

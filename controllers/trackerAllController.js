@@ -11,13 +11,19 @@ exports.trackerAll = async (req, res, next) => {
     );
 
     if (row.length === 0) {
-      return res.status(404).json({
+      return res.status(400).json({
         status : "failed",
-        message: "No Tracker Found!",
-      });
+        message: "Data tidak ditemukan",
+        idUser: null,
+  });
     }
 
-    res.status(200).json(row[0]);
+    res.status(200).json({
+        status : "success",
+        message: "Data berhasil ditemukan",
+        idUser: row[0].user_id,
+        output: row[0],
+    });
 
   } catch (err) {
     next(err);

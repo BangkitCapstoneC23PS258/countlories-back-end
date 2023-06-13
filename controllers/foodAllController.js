@@ -4,17 +4,22 @@ const conn = require('../dbConnection').promise();
 exports.foodAll = async (req, res, next) => {
   try {
 
-    const [rows] = await conn.execute("SELECT * FROM `food`");
+    const [row] = await conn.execute("SELECT * FROM `food`");
 
-    if (rows.length === 0) {
-      return res.status(200).json({
+    if (row.length === 0) {
+      return res.status(400).json({
         status : "failed",
-        message:
-          "No Food Found",
-      });
+        message: "Data tidak berhasil diambil",
+        idUser: null,
+    });
     }
 
-    res.status(200).json(rows);
+    res.status(200).json({
+        status : "success",
+        message: "Data berhasil diambil",
+        idUser: row[0].user_id,
+        output: row[0],
+    });
 
   } catch (err) {
     next(err);

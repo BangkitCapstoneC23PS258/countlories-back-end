@@ -11,8 +11,9 @@ exports.profileUpdate = async (req, res, next) => {
     if (row.length === 0) {
       return res.status(404).json({
         status : "failed",
-        message: "Invalid User ID",
-      });
+        message: "Data user ID invalid",
+        idUser: null,
+    });
     }
 
     const [update] = await conn.execute(
@@ -20,10 +21,12 @@ exports.profileUpdate = async (req, res, next) => {
       [req.body.height, req.body.weight, req.params.user_id]
     );
       
-    return res.json({
+    return res.status(200).json({
         status : "success",
-        message: "The User has been successfully updated.",
-      });
+        message: "Data berhasil diubah",
+        idUser: row[0].user_id,
+        output: row[0],
+    });
 
   } catch (err) {
     next(err);
