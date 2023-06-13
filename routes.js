@@ -36,8 +36,8 @@ router.post('/login',[
 
 //food stuff
 router.get('/get-all-food', foodAll);
-router.get('/get-food/:id', foodID);
-//router.get('/get-food/:name', foodName);
+router.get('/getFoodID/:id', foodID);
+router.get('/getFoodName/:name', foodName);
 
 //profile + data profile
 router.get('/getuser',getUser);

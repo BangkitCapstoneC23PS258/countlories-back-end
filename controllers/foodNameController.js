@@ -6,8 +6,8 @@ exports.foodName = async (req, res, next) => {
   try {
 
     const [row] = await conn.execute(
-        "SELECT * FROM `food` WHERE `name`=?",
-        [req.params.id]
+        "SELECT * FROM `food` WHERE `food_name`=?",
+        [req.params.name]
     );
 
     if (row.length === 0) {
