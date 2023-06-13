@@ -13,15 +13,14 @@ exports.favDelete = async (req, res, next) => {
     if (row.affectedRows === 0) {
      return res.status(400).json({
         status : "failed",
-        message: "Data tidak berhasil diamsukkan",
+        message: "Data tidak berhasil dihapus",
         idUser: null,
   });
     }
 
     res.status(200).json({
         status : "success",
-        message: "Data berhasil dimasukkan",
-        idUser: row[0].user_id,
+        message: "Data berhasil dihapus",
         output: row[0],
     });
     

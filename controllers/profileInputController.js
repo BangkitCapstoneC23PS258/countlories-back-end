@@ -13,16 +13,15 @@ exports.profileInput = async (req, res, next) => {
 
   try {
       
-    const [rows] = await conn.execute(
+    const [row] = await conn.execute(
       "INSERT INTO `personaldata`(`user_id`,`height`,`weight`,`gender`,`dob`) VALUES (?, ?, ?, ?, ?)",
       [req.body.user_id, req.body.height, req.body.weight, req.body.gender, req.body.dob]
     );
 
-    if (rows.affectedRows === 1) {
+    if (row.affectedRows === 1) {
       res.status(200).json({
         status : "success",
         message: "Data berhasil dimasukkan",
-        idUser: row[0].user_id,
         output: row[0],
     });
     }
