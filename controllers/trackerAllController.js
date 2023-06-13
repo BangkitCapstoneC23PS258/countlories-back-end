@@ -2,18 +2,21 @@ const jwt = require('jsonwebtoken');
 const conn = require('../dbConnection').promise();
 
 exports.trackerAll = async (req, res, next) => {
+
   try {
 
-    const [rows] = await conn.execute("SELECT * FROM `tracker`");
+    const [row] = await conn.execute(
+        "SELECT * FROM `tracker` WHERE `user_id`=?",
+        [req.params.id]
+    );
 
-    if (rows.length === 0) {
-      return res.status(200).json({
-        message:
-          "No Food Found",
+    if (row.length === 0) {
+      return res.status(404).json({
+        message: "No Tracker Found!",
       });
     }
 
-    res.status(200).json(rows);
+    res.status(200).json(row[0]);
 
   } catch (err) {
     next(err);

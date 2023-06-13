@@ -6,7 +6,7 @@ exports.trackerID = async (req, res, next) => {
   try {
 
     const [row] = await conn.execute(
-        "SELECT * FROM `tracker` WHERE `tracker_id`=?",
+        "SELECT * FROM `v_tracker` WHERE `tracker_id`=?",
         [req.params.id]
     );
 

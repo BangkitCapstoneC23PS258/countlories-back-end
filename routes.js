@@ -34,14 +34,21 @@ router.post('/login',[
     body('password',"The Password must be of minimum 4 characters length").notEmpty().trim().isLength({ min: 4 }),
 ],login);
 
-//food stuff
-router.get('/get-all-food', foodAll);
-router.get('/getFoodID/:id', foodID);
-router.get('/getFoodName/:name', foodName);
+//Food
+router.get('/getfood', foodAll);
+router.get('/getfoodid/:id', foodID);
+router.get('/getfoodname/:name', foodName);
 
-//profile + data profile
+//Profile + data profile
 router.get('/getuser',getUser);
-router.post('/insert-data', profileInput);
-router.patch('/update-data/:id', profileUpdate);
+router.post('/postuser', profileInput);
+router.patch('/patchuser/:id', profileUpdate);
+
+//Tracker
+router.post('/posttracker',trackerAdd);
+router.get('/gettracker/:id',trackerAll);
+router.get('/gettrackerid/:id',trackerID);
+
+//Favorite
 
 module.exports = router;

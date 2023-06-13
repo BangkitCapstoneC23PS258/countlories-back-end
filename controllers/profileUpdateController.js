@@ -5,8 +5,8 @@ exports.profileUpdate = async (req, res, next) => {
   try {
 
     const [row] = await conn.execute(
-        "SELECT * FROM `user` WHERE `user_id`=?",
-        [req.params.id]
+        "SELECT * FROM `personaldata` WHERE `user_id`=?",
+        [req.params.user_id]
     );
 
     if (row.length === 0) {
@@ -15,13 +15,9 @@ exports.profileUpdate = async (req, res, next) => {
       });
     }
 
-    if (req.body.username) row[0].username = req.body.username;
-
-    if (req.body.email) row[0].email = req.body.email;
-
     const [update] = await conn.execute(
-      "UPDATE `user` SET `username`=?, `email`=? WHERE `user_id`=?",
-      [row[0].username, row[0].email, req.params.id]
+      "UPDATE `personaldata` SET `height`=?, `weight`=?  WHERE `user_id`=?",
+      [req.body.height, req.body.weight, req.params.user_id]
     );
 
     if (update.affectedRows === 1) {

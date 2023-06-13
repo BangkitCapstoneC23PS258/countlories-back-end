@@ -3,18 +3,18 @@ const conn = require('../dbConnection').promise();
 
 exports.profileInput = async (req, res, next) => {
 
-  if (!req.body.name || !req.body.email) {
+  if (!req.body.user_id || !req.body.height || !req.body.weight || !req.body.gender || !req.body.dob) {
     return res.status(400).json({
       message: "Please fill in all the required fields.",
-      fields: ["height", "weight", "gender", "dob"],
+      fields: ["user_id", "height", "weight", "gender", "dob"],
     });
   }
 
   try {
       
     const [rows] = await conn.execute(
-      "INSERT INTO `personaldata`(`height', 'weight', 'gender', 'dob`) VALUES(?, ?, ?, ?)",
-      [req.body.name, req.body.email]
+      "INSERT INTO `personaldata`(`user_id`,`height`,`weight`,`gender`,`dob`) VALUES (?, ?, ?, ?, ?)",
+      [req.body.user_id, req.body.height, req.body.weight, req.body.gender, req.body.dob]
     );
 
     if (rows.affectedRows === 1) {
