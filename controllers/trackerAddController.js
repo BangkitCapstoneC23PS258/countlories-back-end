@@ -3,23 +3,29 @@ const conn = require('../dbConnection').promise();
 
 exports.trackerAdd = async (req, res, next) => {
 
-  try {
+  if (!req.body.tracker_id || !req.body.user_id || !req.body.trackertime) {
+    return res.status(400).json({
+      message: "Please fill in all the required fields.",
+      fields: ["tracker_id", "user_id", "trackertime"],
+    });
+  }
 
-    const [row] = await conn.execute(
-        "SELECT * FROM `tracker` WHERE `user_id`=?",
-        [req.params.id]
+  try {
+      
+    const [rows] = await conn.execute(
+      "INSERT INTO `tracker`(`tracker_id`, `user_id`, `trackertime`) VALUES (?, ?, ?)",
+      [req.body.tracker_id, req.body.user_id, req.body.trackertime]
     );
 
-    if (row.length === 0) {
-      return res.status(404).json({
-        message: "No Tracker Found!",
+    if (rows.affectedRows === 1) {
+      return res.status(201).json({
+        message: "The data has been successfully inserted.",
+        userID: rows.insertId,
       });
     }
-
-    res.status(200).json(row[0]);
 
   } catch (err) {
     next(err);
   }
-
+  
 };

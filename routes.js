@@ -11,6 +11,9 @@ const {profileUpdate} = require('./controllers/profileUpdateController');
 const {trackerID} = require('./controllers/trackerIDController');
 const {trackerAll} = require('./controllers/trackerAllController');
 const {trackerAdd} = require('./controllers/trackerAddController');
+const {favID} = require('./controllers/favoriteGetController');
+const {favDelete} = require('./controllers/favoriteDeleteController');
+const {favAdd} = require('./controllers/favoriteAddController');
 
 //Login + Register
 router.post('/register', [
@@ -50,5 +53,8 @@ router.get('/gettracker/:id',trackerAll);
 router.get('/gettrackerid/:id',trackerID);
 
 //Favorite
+router.get('/getfav/:id',favID);
+router.post('/postfav',favAdd);
+router.delete('/deletefav/:id',favDelete);
 
 module.exports = router;

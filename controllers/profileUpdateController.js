@@ -15,9 +15,12 @@ exports.profileUpdate = async (req, res, next) => {
       });
     }
 
+    if (req.body.height) row[0].height = req.body.height
+    if (req.body.weight) row[0].weight = req.body.weight;
+
     const [update] = await conn.execute(
-      "UPDATE `personaldata` SET `height`=?, `weight`=?  WHERE `user_id`=?",
-      [req.body.height, req.body.weight, req.params.user_id]
+      "UPDATE `personaldata` SET `height`=?, `weight`=? WHERE `user_id`=?",
+      [row[0].height, row[0].weight, req.params.user_id]
     );
 
     if (update.affectedRows === 1) {

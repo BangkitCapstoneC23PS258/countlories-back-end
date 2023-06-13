@@ -1,18 +1,18 @@
 const jwt = require('jsonwebtoken');
 const conn = require('../dbConnection').promise();
 
-exports.favGet = async (req, res, next) => {
+exports.favID = async (req, res, next) => {
 
   try {
 
     const [row] = await conn.execute(
-        "SELECT * FROM `tracker` WHERE `user_id`=?",
+        "SELECT * FROM `v_favorite` WHERE `user_id`=?",
         [req.params.id]
     );
 
     if (row.length === 0) {
       return res.status(404).json({
-        message: "No Tracker Found!",
+        message: "No Favorite Found!",
       });
     }
 
