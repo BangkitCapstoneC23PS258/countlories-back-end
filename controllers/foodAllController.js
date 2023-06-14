@@ -17,8 +17,7 @@ exports.foodAll = async (req, res, next) => {
     res.status(200).json({
         status : "success",
         message: "Data berhasil diambil",
-        idUser: row[0].user_id,
-        output: row[0],
+        output: row,
     });
 
   } catch (err) {
