@@ -12,6 +12,7 @@ const {trackerID} = require('./controllers/trackerIDController');
 const {trackerAll} = require('./controllers/trackerAllController');
 const {trackerAdd} = require('./controllers/trackerAddController');
 const {favID} = require('./controllers/favoriteGetController');
+const {favFoodID} = require('./controllers/favoriteGetIDController');
 const {favDelete} = require('./controllers/favoriteDeleteController');
 const {favAdd} = require('./controllers/favoriteAddController');
 
@@ -54,6 +55,7 @@ router.get('/gettrackerid/:id',trackerID);
 
 //Favorite
 router.get('/getfav/:id',favID);
+router.get('/getfavid/:user_id/:food_id',favFoodID);
 router.post('/postfav',favAdd);
 router.delete('/deletefav/:user_id/:food_id',favDelete);
 
