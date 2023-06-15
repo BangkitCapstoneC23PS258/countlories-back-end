@@ -3,33 +3,42 @@ const conn = require('../dbConnection').promise();
 
 exports.trackerAdd = async (req, res, next) => {
 
-  if (!req.body.tracker_id || !req.body.user_id || !req.body.trackertime) {
-    return res.status(404).json({
-      status : "failed",
-      message: "Please fill in all the required fields.",
-      fields: ["tracker_id", "user_id", "trackertime"],
-        idUser: null,
-    });
-  }
+    try{
+        console.log(req.body.user_id);
+        console.log(req.body.food_id);
 
-  try {
-      
-    const [rows] = await conn.execute(
-      "INSERT INTO `tracker`(`tracker_id`, `user_id`, `trackertime`) VALUES (?, ?, ?)",
-      [req.body.tracker_id, req.body.user_id, req.body.trackertime]
-    );
+        const [row] = await conn.execute(
+            "SELECT * FROM `tracker` WHERE DATE(`trackertime`)= CURRENT_DATE() && `user_id`=?",
+            [req.body.user_id]
+          );
 
-    if (rows.affectedRows === 1) {
-      res.status(200).json({
-            status : "success",
-            message: "Data berhasil dimasukkan",
-            idUser: row[0].user_id,
-            output: row[0],
-        });
+        if (row.length === 0) {
+            const [rows] = await conn.execute('INSERT INTO `tracker`(`user_id`,`trackertime`) VALUES(?,CURRENT_TIMESTAMP())',[
+                req.body.user_id,
+            ]);
+        }
+        
+        const [select] = await conn.execute(
+                "SELECT * FROM `tracker` WHERE DATE(`trackertime`)= CURRENT_DATE() && `user_id`=?",
+                [req.body.user_id]
+            );
+            
+        let user_id = select[0].user_id;
+            
+        const [insert] = await conn.execute('INSERT INTO `tracker_item`(`tracker_id`,`food_id`) VALUES(?,?)',[
+            select[0].tracker_id,
+            req.body.food_id,
+        ]);
+
+        if (insert.affectedRows === 1) {
+            res.status(200).json({
+                status : "success",
+                message: "Data berhasil dimasukkan",
+                output: insert[0],
+            });
+        }
+        
+    }catch(err){
+        next(err);
     }
-
-  } catch (err) {
-    next(err);
-  }
-  
 };
