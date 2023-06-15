@@ -3,6 +3,14 @@ const conn = require('../dbConnection').promise();
 
 exports.trackerAdd = async (req, res, next) => {
 
+    if (!req.body.user_id || !req.body.food_id) {
+        return res.status(404).json({
+          status : "failed",
+          message: "Please fill in all the required fields.",
+          fields: ["user_id", "food_id"],
+        });
+      }
+    
     try{
         console.log(req.body.user_id);
         console.log(req.body.food_id);
