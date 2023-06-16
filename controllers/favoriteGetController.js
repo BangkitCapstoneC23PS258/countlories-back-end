@@ -22,7 +22,7 @@ exports.favID = async (req, res, next) => {
         status : "success",
         message: "Data favorite berhasil didapat",
         idUser: row[0].user_id,
-        output: row[0],
+        output: row,
     });
 
   } catch (err) {
