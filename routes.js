@@ -6,6 +6,7 @@ const {getUser} = require('./controllers/getUserController');
 const {foodAll} = require('./controllers/foodAllController');
 const {foodID} = require('./controllers/foodIDController');
 const {foodName} = require('./controllers/foodNameController');
+const {profileGet} = require('./controllers/profileGetController');
 const {profileInput} = require('./controllers/profileInputController');
 const {profileUpdate} = require('./controllers/profileUpdateController');
 const {trackerID} = require('./controllers/trackerIDController');
@@ -44,7 +45,7 @@ router.get('/getfoodid/:id', foodID);
 router.get('/getfoodname/:name', foodName);
 
 //Profile + data profile
-router.get('/getuser',getUser);
+router.get('/getuser/:id',profileGet);
 router.post('/postuser', profileInput);
 router.patch('/patchuser/:user_id', profileUpdate);
 
