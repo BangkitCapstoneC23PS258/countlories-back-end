@@ -11,6 +11,7 @@ const {profileInput} = require('./controllers/profileInputController');
 const {profileUpdate} = require('./controllers/profileUpdateController');
 const {trackerID} = require('./controllers/trackerIDController');
 const {trackerAll} = require('./controllers/trackerAllController');
+const {trackerCalorie} = require('./controllers/trackerGetCalorieController');
 const {trackerAdd} = require('./controllers/trackerAddController');
 const {favID} = require('./controllers/favoriteGetController');
 const {favFoodID} = require('./controllers/favoriteGetIDController');
@@ -53,6 +54,7 @@ router.patch('/patchuser/:user_id', profileUpdate);
 router.post('/posttracker',trackerAdd);
 router.get('/gettracker/:id',trackerAll);
 router.get('/gettrackerid/:id',trackerID);
+router.get('/gettrackercalorie/:id',trackerCalorie);
 
 //Favorite
 router.get('/getfav/:id',favID);
