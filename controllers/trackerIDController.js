@@ -22,7 +22,7 @@ exports.trackerID = async (req, res, next) => {
         status : "success",
         message: "Data berhasil ditemukan",
         idUser: row[0].tracker_id,
-        output: row[0],
+        output: row,
     });
 
   } catch (err) {
